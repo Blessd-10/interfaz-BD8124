@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
-import formatDistanceToNow from "date-fns/formatDistanceToNow"
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
-import { cn } from "@/lib/utils"
-import { Badge } from "@/components/ui/badge"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { useMail } from "@/logic/use-mail"
+import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { cn } from "@/lib/utils";
+import { useMail } from "@/logic/use-mail";
 
 export function MailList({ items }) {
-  const [mail, setMail] = useMail()
+  const [mail, setMail] = useMail();
 
   return (
     <ScrollArea className="h-screen">
@@ -65,19 +65,17 @@ export function MailList({ items }) {
         ))}
       </div>
     </ScrollArea>
-  )
+  );
 }
 
-function getBadgeVariantFromLabel(
-  label
-){
+function getBadgeVariantFromLabel(label) {
   if (["work"].includes(label.toLowerCase())) {
-    return "default"
+    return "default";
   }
 
   if (["personal"].includes(label.toLowerCase())) {
-    return "outline"
+    return "outline";
   }
 
-  return "secondary"
+  return "secondary";
 }

@@ -1,24 +1,20 @@
 /* eslint-disable react/prop-types */
 
+import * as React from "react";
 
-import * as React from "react"
-
-import { cn } from "@/lib/utils"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
-export function AccountSwitcher({
-  isCollapsed,
-  accounts,
-}) {
+export function AccountSwitcher({ isCollapsed, accounts }) {
   const [selectedAccount, setSelectedAccount] = React.useState(
     accounts[0].email
-  )
+  );
 
   return (
     <Select defaultValue={selectedAccount} onValueChange={setSelectedAccount}>
@@ -51,5 +47,5 @@ export function AccountSwitcher({
         ))}
       </SelectContent>
     </Select>
-  )
+  );
 }
