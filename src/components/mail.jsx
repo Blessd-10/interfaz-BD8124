@@ -189,7 +189,7 @@ export function Mail({
                 </div>
               </form>
             </div>
-            <TabsContent value="all" className="m-0">
+            <TabsContent value="all" className="m-0 max-h-full">
               <MailList items={mails} />
             </TabsContent>
             <TabsContent value="unread" className="m-0">

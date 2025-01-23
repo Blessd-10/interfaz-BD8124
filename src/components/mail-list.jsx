@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 import { Badge } from "@/components/ui/badge";
@@ -10,7 +9,7 @@ export function MailList({ items }) {
   const [mail, setMail] = useMail();
 
   return (
-    <ScrollArea className="h-screen">
+    <ScrollArea className="h-[80dvh]">
       <div className="flex flex-col gap-2 p-4 pt-0">
         {items.map((item) => (
           <button
@@ -53,7 +52,7 @@ export function MailList({ items }) {
               {item.text.substring(0, 300)}
             </div>
             {item.labels.length ? (
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 pb-10">
                 {item.labels.map((label) => (
                   <Badge key={label} variant={getBadgeVariantFromLabel(label)}>
                     {label}
