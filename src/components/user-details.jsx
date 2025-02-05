@@ -11,7 +11,7 @@ const UserTimeDisplay = ({ username, email }) => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center p-4 bg-gray-800 text-white rounded-xl shadow-md w-64">
+    <div className="flex flex-col items-center p-1 rounded-xl shadow-md w-64">
       <h2 className="text-lg font-semibold">Hola, {username} 👋</h2>
       <p className="text-sm text-gray-300">{email}</p>
       <p className="text-2xl font-bold mt-2">{time.toLocaleTimeString()}</p>
