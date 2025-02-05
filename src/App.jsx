@@ -1,26 +1,14 @@
+import { Routes, Route } from "react-router";
+import EmailPage from "./pages/email";
+import LoginPage from "./pages/login";
 
-
-import { Mail } from "./components/mail"
-import { accounts, mails } from "./constants/data"
-
-export default function MailPage() {
-
-
-  const defaultLayout =  undefined
-  const defaultCollapsed =  undefined
-
+const App = () => {
   return (
-    <>
+    <Routes>
+      <Route path="/" element={<EmailPage />} />
+      <Route path="/login" element={<LoginPage />} />
+    </Routes>
+  );
+};
 
-      <div className="hidden flex-col md:flex">
-        <Mail
-          accounts={accounts}
-          mails={mails}
-          defaultLayout={defaultLayout}
-          defaultCollapsed={defaultCollapsed}
-          navCollapsedSize={4}
-        />
-      </div>
-    </>
-  )
-}
+export default App;

@@ -1,8 +1,11 @@
-/* eslint-disable react/prop-types */
+//* eslint-disable react/prop-types */
+// Importación de utilidades para el manejo de fechas
 import addDays from "date-fns/addDays";
 import addHours from "date-fns/addHours";
 import format from "date-fns/format";
 import nextSaturday from "date-fns/nextSaturday";
+
+// Importación de iconos desde la librería 'lucide-react'
 import {
   Archive,
   ArchiveX,
@@ -14,6 +17,7 @@ import {
   Trash2,
 } from "lucide-react";
 
+// Importación de componentes personalizados de la UI
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -38,13 +42,16 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
+// Componente principal para mostrar un correo electrónico
 export function MailDisplay({ mail }) {
-  const today = new Date();
+  const today = new Date(); // Obtiene la fecha actual
 
   return (
     <div className="flex h-full flex-col">
+      {/* Barra de herramientas con acciones sobre el correo */}
       <div className="flex items-center p-2">
         <div className="flex items-center gap-2">
+          {/* Botón para archivar el correo */}
           <Tooltip>
             <TooltipTrigger asChild>
               <Button variant="ghost" size="icon" disabled={!mail}>
@@ -54,6 +61,8 @@ export function MailDisplay({ mail }) {
             </TooltipTrigger>
             <TooltipContent>Archive</TooltipContent>
           </Tooltip>
+
+          {/* Botón para mover el correo a la carpeta de spam */}
           <Tooltip>
             <TooltipTrigger asChild>
               <Button variant="ghost" size="icon" disabled={!mail}>
@@ -63,6 +72,8 @@ export function MailDisplay({ mail }) {
             </TooltipTrigger>
             <TooltipContent>Move to junk</TooltipContent>
           </Tooltip>
+
+          {/* Botón para eliminar el correo */}
           <Tooltip>
             <TooltipTrigger asChild>
               <Button variant="ghost" size="icon" disabled={!mail}>
@@ -72,7 +83,10 @@ export function MailDisplay({ mail }) {
             </TooltipTrigger>
             <TooltipContent>Move to trash</TooltipContent>
           </Tooltip>
+
           <Separator orientation="vertical" className="mx-1 h-6" />
+
+          {/* Botón para posponer el correo */}
           <Tooltip>
             <Popover>
               <PopoverTrigger asChild>
@@ -86,38 +100,27 @@ export function MailDisplay({ mail }) {
               <PopoverContent className="flex w-[535px] p-0">
                 <div className="flex flex-col gap-2 border-r px-2 py-4">
                   <div className="px-4 text-sm font-medium">Snooze until</div>
+                  {/* Opciones rápidas para posponer */}
                   <div className="grid min-w-[250px] gap-1">
-                    <Button
-                      variant="ghost"
-                      className="justify-start font-normal"
-                    >
-                      Later today{" "}
+                    <Button variant="ghost" className="justify-start font-normal">
+                      Later today
                       <span className="ml-auto text-muted-foreground">
                         {format(addHours(today, 4), "E, h:m b")}
                       </span>
                     </Button>
-                    <Button
-                      variant="ghost"
-                      className="justify-start font-normal"
-                    >
+                    <Button variant="ghost" className="justify-start font-normal">
                       Tomorrow
                       <span className="ml-auto text-muted-foreground">
                         {format(addDays(today, 1), "E, h:m b")}
                       </span>
                     </Button>
-                    <Button
-                      variant="ghost"
-                      className="justify-start font-normal"
-                    >
+                    <Button variant="ghost" className="justify-start font-normal">
                       This weekend
                       <span className="ml-auto text-muted-foreground">
                         {format(nextSaturday(today), "E, h:m b")}
                       </span>
                     </Button>
-                    <Button
-                      variant="ghost"
-                      className="justify-start font-normal"
-                    >
+                    <Button variant="ghost" className="justify-start font-normal">
                       Next week
                       <span className="ml-auto text-muted-foreground">
                         {format(addDays(today, 7), "E, h:m b")}
@@ -126,13 +129,15 @@ export function MailDisplay({ mail }) {
                   </div>
                 </div>
                 <div className="p-2">
-                  <Calendar />
+                  <Calendar /> {/* Calendario para seleccionar una fecha personalizada */}
                 </div>
               </PopoverContent>
             </Popover>
             <TooltipContent>Snooze</TooltipContent>
           </Tooltip>
         </div>
+
+        {/* Acciones de respuesta */}
         <div className="ml-auto flex items-center gap-2">
           <Tooltip>
             <TooltipTrigger asChild>
@@ -143,6 +148,7 @@ export function MailDisplay({ mail }) {
             </TooltipTrigger>
             <TooltipContent>Reply</TooltipContent>
           </Tooltip>
+
           <Tooltip>
             <TooltipTrigger asChild>
               <Button variant="ghost" size="icon" disabled={!mail}>
@@ -152,6 +158,7 @@ export function MailDisplay({ mail }) {
             </TooltipTrigger>
             <TooltipContent>Reply all</TooltipContent>
           </Tooltip>
+
           <Tooltip>
             <TooltipTrigger asChild>
               <Button variant="ghost" size="icon" disabled={!mail}>
@@ -162,7 +169,10 @@ export function MailDisplay({ mail }) {
             <TooltipContent>Forward</TooltipContent>
           </Tooltip>
         </div>
+
         <Separator orientation="vertical" className="mx-2 h-6" />
+
+        {/* Menú desplegable para más opciones */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" disabled={!mail}>
@@ -178,7 +188,10 @@ export function MailDisplay({ mail }) {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+
       <Separator />
+
+      {/* Sección principal del correo */}
       {mail ? (
         <div className="flex flex-1 flex-col">
           <div className="flex items-start p-4">
@@ -186,10 +199,7 @@ export function MailDisplay({ mail }) {
               <Avatar>
                 <AvatarImage alt={mail.name} />
                 <AvatarFallback>
-                  {mail.name
-                    .split(" ")
-                    .map((chunk) => chunk[0])
-                    .join("")}
+                  {mail.name.split(" ").map((chunk) => chunk[0]).join("")}
                 </AvatarFallback>
               </Avatar>
               <div className="grid gap-1">
@@ -206,31 +216,26 @@ export function MailDisplay({ mail }) {
               </div>
             )}
           </div>
+
           <Separator />
+
+          {/* Cuerpo del mensaje */}
           <div className="flex-1 whitespace-pre-wrap p-4 text-sm">
             {mail.text}
           </div>
+
           <Separator className="mt-auto" />
+
+          {/* Sección para responder el correo */}
           <div className="p-4">
             <form>
               <div className="grid gap-4">
-                <Textarea
-                  className="p-4"
-                  placeholder={`Reply ${mail.name}...`}
-                />
+                <Textarea className="p-4" placeholder={`Reply ${mail.name}...`} />
                 <div className="flex items-center">
-                  <Label
-                    htmlFor="mute"
-                    className="flex items-center gap-2 text-xs font-normal"
-                  >
-                    <Switch id="mute" aria-label="Mute thread" /> Mute this
-                    thread
+                  <Label htmlFor="mute" className="flex items-center gap-2 text-xs font-normal">
+                    <Switch id="mute" aria-label="Mute thread" /> Mute this thread
                   </Label>
-                  <Button
-                    onClick={(e) => e.preventDefault()}
-                    size="sm"
-                    className="ml-auto"
-                  >
+                  <Button onClick={(e) => e.preventDefault()} size="sm" className="ml-auto">
                     Send
                   </Button>
                 </div>
