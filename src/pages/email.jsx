@@ -28,7 +28,7 @@ export default function EmailPage() {
     <>
       <div className="hidden flex-col md:flex">
         <Mail
-          mails={transformMessages(data) ?? mails} // Lista de correos electrónicos
+          mails={transformMessages(data?.data) ?? mails} // Lista de correos electrónicos
           defaultLayout={defaultLayout} // Configuración del diseño por defecto (actualmente no definida)
           defaultCollapsed={defaultCollapsed} // Estado de colapso por defecto (actualmente no definido)
           navCollapsedSize={4} // Tamaño del menú de navegación cuando está colapsado
