@@ -304,6 +304,7 @@ export const transformMessages = (messages) => {
       date: msg.fechaaccion,
       read: false,
       labels: [msg.idtipocarpeta.toLowerCase(), msg.idcategoria.toLowerCase()],
+      ...msg,
     })) ?? null
   );
 };
