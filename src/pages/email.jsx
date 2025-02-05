@@ -1,4 +1,4 @@
-import { mails } from "@/constants/data";
+import { mails, transformMessages } from "@/constants/data";
 import { useToast } from "@/hooks/use-toast";
 import { useGetAllUserMailsQuery } from "@/services";
 import { useEffect } from "react";
@@ -27,7 +27,7 @@ export default function EmailPage() {
     <>
       <div className="hidden flex-col md:flex">
         <Mail
-          mails={data ?? mails} // Lista de correos electrónicos
+          mails={transformMessages(data) ?? mails} // Lista de correos electrónicos
           defaultLayout={defaultLayout} // Configuración del diseño por defecto (actualmente no definida)
           defaultCollapsed={defaultCollapsed} // Estado de colapso por defecto (actualmente no definido)
           navCollapsedSize={4} // Tamaño del menú de navegación cuando está colapsado
