@@ -294,7 +294,7 @@ export const contacts = [
 ];
 
 export const transformMessages = (messages) => {
-  return messages.map((msg) => ({
+  return messages?.map((msg) => ({
     id: msg.idmensaje,
     name: `User ${msg.usuario}`,
     email: `${msg.usuario.toLowerCase()}@example.com`,
