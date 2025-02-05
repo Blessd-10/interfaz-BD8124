@@ -1,7 +1,7 @@
 import { mails, transformMessages } from "@/constants/data";
 import { useToast } from "@/hooks/use-toast";
 import { useGetAllUserMailsQuery } from "@/services";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Mail } from "../components/mail";
 
 // Componente principal de la página de correos
@@ -15,7 +15,7 @@ export default function EmailPage() {
   const [messages, setMessages] = useState(null);
   const getAllMessages = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/mensajes");
+      const res = await fetch("http://localhost:3000/mensajes");
       const data = await res.json();
       setMessages(data);
     } catch (error) {
@@ -39,11 +39,21 @@ export default function EmailPage() {
     }
   }, [data, error, toast]);
 
+  const mailsData = useMemo(() => {
+    if (data) {
+      return transformMessages(data);
+    }
+    if (messages) {
+      return transformMessages(messages);
+    }
+    return mails;
+  }, [data, messages]);
+
   return (
     <>
       <div className="hidden flex-col md:flex">
         <Mail
-          mails={transformMessages(messages) ?? mails} // Lista de correos electrónicos
+          mails={mailsData} // Lista de correos electrónicos
           defaultLayout={defaultLayout} // Configuración del diseño por defecto (actualmente no definida)
           defaultCollapsed={defaultCollapsed} // Estado de colapso por defecto (actualmente no definido)
           navCollapsedSize={4} // Tamaño del menú de navegación cuando está colapsado
