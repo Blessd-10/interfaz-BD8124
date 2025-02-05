@@ -1,6 +1,7 @@
 import { mails, transformMessages } from "@/constants/data";
 import { useToast } from "@/hooks/use-toast";
 import { useGetAllUserMailsQuery } from "@/services";
+import useGlobalStore from "@/zustand/global";
 import { useEffect, useMemo, useState } from "react";
 import { Mail } from "../components/mail";
 
@@ -27,6 +28,11 @@ export default function EmailPage() {
     getAllMessages();
   }, []);
 
+  const { refetch } = useGlobalStore();
+  useEffect(() => {
+    if (refetch) getAllMessages();
+  }, [refetch]);
+
   console.log(messages, data);
 
   useEffect(() => {
@@ -45,6 +51,7 @@ export default function EmailPage() {
     }
     if (messages) {
       return transformMessages(messages);
+      // comments
     }
     return mails;
   }, [data, messages]);

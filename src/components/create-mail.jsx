@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { useCreateMessajeMutation, useGetAllUserMailsQuery } from "@/services";
+import useGlobalStore from "@/zustand/global";
 import { useState } from "react";
 
 const CreateMail = () => {
@@ -38,6 +39,7 @@ const CreateMail = () => {
   const { toast } = useToast();
   const [sendMessage] = useCreateMessajeMutation();
   const { refetch } = useGetAllUserMailsQuery();
+  const { setRefetch } = useGlobalStore();
 
   const handleSubmit = async () => {
     const payload = {
@@ -51,6 +53,7 @@ const CreateMail = () => {
       await sendMessage(payload).unwrap();
       console.log("Payload enviado:", payload);
       refetch(1);
+      setRefetch(true);
       toast({
         title: "Mensaje enviado",
         message: "El mensaje ha sido enviado correctamente.",

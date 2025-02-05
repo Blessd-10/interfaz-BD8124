@@ -7,6 +7,8 @@ const useGlobalStore = create((set) => ({
   setSelectedCategory: (selectedCategory) => set({ selectedCategory }),
   selectedFolder: "Rec",
   setSelectedFolder: (selectedFolder) => set({ selectedFolder }),
+  refetch: false,
+  setRefetch: (refetch) => set({ refetch }),
 }));
 
 export default useGlobalStore;
