@@ -13,10 +13,11 @@ import {
 } from "lucide-react";
 import * as React from "react";
 
-import { AccountSwitcher } from "@/components/account-switcher";
+import CreateMail from "@/components/create-mail";
 import { MailDisplay } from "@/components/mail-display";
 import { MailList } from "@/components/mail-list";
 import { Nav } from "@/components/nav";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   ResizableHandle,
@@ -24,20 +25,50 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs } from "@/components/ui/tabs";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { useMail } from "@/logic/use-mail";
+import { useLogoutMutation } from "@/services";
+import { useNavigate } from "react-router";
 
 export function Mail({
-  accounts,
   mails,
   defaultLayout = [20, 32, 48],
   defaultCollapsed = false,
   navCollapsedSize,
 }) {
+  // STATES
   const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed);
+
+  // HOOKS
   const [mail] = useMail();
+
+  // UTILS
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
+  // Service call to logout
+  const [logout] = useLogoutMutation();
+
+  const onLogout = React.useCallback(async () => {
+    try {
+      await logout().unwrap();
+      navigate("/");
+      toast({
+        title: "Exito",
+        message: "Cerraste sesión correctamente",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        message: error.message,
+        variant: "destructive",
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <TooltipProvider delayDuration={0}>
@@ -79,7 +110,9 @@ export function Mail({
               isCollapsed ? "h-[52px]" : "px-2"
             )}
           >
-            <AccountSwitcher isCollapsed={isCollapsed} accounts={accounts} />
+            <Button variant="destructive" onClick={onLogout}>
+              Cerrar sesion
+            </Button>
           </div>
           <Separator />
           <Nav
@@ -163,38 +196,20 @@ export function Mail({
         <ResizableHandle withHandle />
         <ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
           <Tabs defaultValue="all">
-            <div className="flex items-center px-4 py-2">
+            <div className="flex items-center px-4 py-2 justify-between">
               <h1 className="text-xl font-bold">Inbox</h1>
-              <TabsList className="ml-auto">
-                <TabsTrigger
-                  value="all"
-                  className="text-zinc-600 dark:text-zinc-200"
-                >
-                  All mail
-                </TabsTrigger>
-                <TabsTrigger
-                  value="unread"
-                  className="text-zinc-600 dark:text-zinc-200"
-                >
-                  Unread
-                </TabsTrigger>
-              </TabsList>
+              <CreateMail />
             </div>
             <Separator />
             <div className="bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
               <form>
                 <div className="relative">
                   <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                  <Input placeholder="Search" className="pl-8" />
+                  <Input placeholder="Buscar correo" className="pl-8" />
                 </div>
               </form>
             </div>
-            <TabsContent value="all" className="m-0 max-h-full">
-              <MailList items={mails} />
-            </TabsContent>
-            <TabsContent value="unread" className="m-0">
-              <MailList items={mails.filter((item) => !item.read)} />
-            </TabsContent>
+            <MailList items={mails} />
           </Tabs>
         </ResizablePanel>
         <ResizableHandle withHandle />

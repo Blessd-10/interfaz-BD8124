@@ -13,7 +13,31 @@ export const moduloApi = createApi({
         },
       }),
     }),
+    logout: builder.mutation({
+      query: () => ({
+        url: "logout",
+        method: "POST",
+      }),
+    }),
+    getAllUserMails: builder.query({
+      query: () => ({
+        url: "mensajes",
+        method: "GET",
+      }),
+    }),
+    createMessaje: builder.mutation({
+      query: (messaje) => ({
+        url: "enviomensaje",
+        method: "POST",
+        body: messaje,
+      }),
+    }),
   }),
 });
 
-export const { useLoginUserMutation } = moduloApi;
+export const {
+  useLoginUserMutation,
+  useLogoutMutation,
+  useCreateMessajeMutation,
+  useGetAllUserMailsQuery,
+} = moduloApi;
