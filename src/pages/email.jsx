@@ -1,7 +1,7 @@
 import { mails, transformMessages } from "@/constants/data";
 import { useToast } from "@/hooks/use-toast";
 import { useGetAllUserMailsQuery } from "@/services";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Mail } from "../components/mail";
 
 // Componente principal de la página de correos
@@ -12,6 +12,22 @@ export default function EmailPage() {
 
   const { toast } = useToast();
   const { data, error } = useGetAllUserMailsQuery();
+  const [messages, setMessages] = useState(null);
+  const getAllMessages = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/mensajes");
+      const data = await res.json();
+      setMessages(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getAllMessages();
+  }, []);
+
+  console.log(messages, data);
 
   useEffect(() => {
     if (error) {
@@ -27,8 +43,11 @@ export default function EmailPage() {
     if (data) {
       return transformMessages(data);
     }
+    if (messages) {
+      return transformMessages(messages);
+    }
     return mails;
-  }, [data]);
+  }, [data, messages]);
 
   return (
     <>
