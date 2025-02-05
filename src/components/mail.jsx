@@ -30,7 +30,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { useMail } from "@/logic/use-mail";
-import { useLogoutMutation } from "@/services";
+import { useGetCategoriasQuery, useLogoutMutation } from "@/services";
 import useGlobalStore from "@/zustand/global";
 import { useNavigate } from "react-router";
 
@@ -58,6 +58,8 @@ export function Mail({
 
   // Service call to logout
   const [logout] = useLogoutMutation();
+  const { data: categorias } = useGetCategoriasQuery();
+  console.log(categorias);
 
   const onLogout = React.useCallback(async () => {
     try {

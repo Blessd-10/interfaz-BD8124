@@ -32,6 +32,12 @@ export const moduloApi = createApi({
         body: messaje,
       }),
     }),
+    getCategorias: builder.query({
+      query: () => ({
+        url: "categoria",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -40,4 +46,5 @@ export const {
   useLogoutMutation,
   useCreateMessajeMutation,
   useGetAllUserMailsQuery,
+  useGetCategoriasQuery,
 } = moduloApi;
