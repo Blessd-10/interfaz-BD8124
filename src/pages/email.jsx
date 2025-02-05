@@ -12,7 +12,7 @@ export default function EmailPage() {
 
   const { toast } = useToast();
   const { data, error } = useGetAllUserMailsQuery();
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(null);
   const getAllMessages = async () => {
     try {
       const res = await fetch("http://localhost:3000/api/mensajes");
@@ -43,7 +43,7 @@ export default function EmailPage() {
     <>
       <div className="hidden flex-col md:flex">
         <Mail
-          mails={transformMessages(data?.data) ?? mails} // Lista de correos electrónicos
+          mails={transformMessages(messages) ?? mails} // Lista de correos electrónicos
           defaultLayout={defaultLayout} // Configuración del diseño por defecto (actualmente no definida)
           defaultCollapsed={defaultCollapsed} // Estado de colapso por defecto (actualmente no definido)
           navCollapsedSize={4} // Tamaño del menú de navegación cuando está colapsado
