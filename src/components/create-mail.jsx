@@ -45,7 +45,7 @@ const CreateMail = () => {
     const payload = {
       asunto,
       cuerpoMensaje,
-      idTipoCarpeta: "Rec",
+      idTipoCarpeta: "Env",
       idCategoria: "PRI",
       destinatarios,
     };
