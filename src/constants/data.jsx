@@ -294,14 +294,16 @@ export const contacts = [
 ];
 
 export const transformMessages = (messages) => {
-  return messages?.map((msg) => ({
-    id: msg.idmensaje,
-    name: `User ${msg.usuario}`,
-    email: `${msg.usuario.toLowerCase()}@example.com`,
-    subject: msg.asunto,
-    text: msg.cuerpomensaje,
-    date: msg.fechaaccion,
-    read: false,
-    labels: [msg.idtipocarpeta.toLowerCase(), msg.idcategoria.toLowerCase()],
-  }));
+  return (
+    messages?.map((msg) => ({
+      id: msg.idmensaje,
+      name: `User ${msg.usuario}`,
+      email: `${msg.usuario.toLowerCase()}@example.com`,
+      subject: msg.asunto,
+      text: msg.cuerpomensaje,
+      date: msg.fechaaccion,
+      read: false,
+      labels: [msg.idtipocarpeta.toLowerCase(), msg.idcategoria.toLowerCase()],
+    })) ?? null
+  );
 };
