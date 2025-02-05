@@ -111,9 +111,6 @@ export function Mail({
             )}
           >
             <UserTimeDisplay username={user.id} email={user.email} />
-            <Button variant="destructive" onClick={onLogout}>
-              Cerrar sesion
-            </Button>
           </div>
           <Separator />
           <div className="flex px-2 w-full py-4">
@@ -160,6 +157,10 @@ export function Mail({
               ]}
             />
           </div>
+
+          <Button variant="destructive" onClick={onLogout}>
+            Cerrar sesion
+          </Button>
         </ResizablePanel>
         <ResizableHandle withHandle />
         <ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
