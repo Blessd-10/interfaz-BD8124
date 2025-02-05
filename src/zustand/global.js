@@ -5,7 +5,7 @@ const useGlobalStore = create((set) => ({
   setUser: (user) => set({ user }),
   selectedCategory: null,
   setSelectedCategory: (selectedCategory) => set({ selectedCategory }),
-  selectedFolder: "Inbox",
+  selectedFolder: "Rec",
   setSelectedFolder: (selectedFolder) => set({ selectedFolder }),
 }));
 
