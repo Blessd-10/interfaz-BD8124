@@ -39,7 +39,7 @@ const CreateMail = () => {
   const { toast } = useToast();
   const [sendMessage] = useCreateMessajeMutation();
   const { refetch } = useGetAllUserMailsQuery();
-  const { setRefetch } = useGlobalStore();
+  const { refetch: aja, setRefetch } = useGlobalStore();
 
   const handleSubmit = async () => {
     const payload = {
@@ -53,7 +53,7 @@ const CreateMail = () => {
       await sendMessage(payload).unwrap();
       console.log("Payload enviado:", payload);
       refetch(1);
-      setRefetch(true);
+      setRefetch(!aja);
       toast({
         title: "Mensaje enviado",
         message: "El mensaje ha sido enviado correctamente.",

@@ -28,10 +28,10 @@ export default function EmailPage() {
     getAllMessages();
   }, []);
 
-  const { refetch } = useGlobalStore();
+  const { refetch, selectedFolder } = useGlobalStore();
   useEffect(() => {
-    if (refetch) getAllMessages();
-  }, [refetch]);
+    getAllMessages();
+  }, [refetch, selectedFolder]);
 
   console.log(messages, data);
 
