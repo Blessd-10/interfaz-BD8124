@@ -12,6 +12,7 @@ export default function EmailPage() {
 
   const { toast } = useToast();
   const { data, error } = useGetAllUserMailsQuery();
+  console.log(data);
 
   useEffect(() => {
     if (error) {
