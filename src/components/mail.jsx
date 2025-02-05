@@ -15,6 +15,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Tabs } from "@/components/ui/tabs";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import UserTimeDisplay from "@/components/user-details";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { useMail } from "@/logic/use-mail";
@@ -36,6 +37,8 @@ export function Mail({
     selectedFolder,
     setSelectedFolder,
   } = useGlobalStore();
+
+  const { user } = useGlobalStore();
 
   // HOOKS
   const [mail] = useMail();
@@ -103,10 +106,11 @@ export function Mail({
         >
           <div
             className={cn(
-              "flex h-[52px] items-center justify-center",
+              "flex flex-col h-[52px] items-center justify-center",
               isCollapsed ? "h-[52px]" : "px-2"
             )}
           >
+            <UserTimeDisplay username={user.id} email={user.email} />
             <Button variant="destructive" onClick={onLogout}>
               Cerrar sesion
             </Button>

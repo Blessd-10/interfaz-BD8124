@@ -13,6 +13,7 @@ import { useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import useGlobalStore from "@/zustand/global";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -32,10 +33,12 @@ const LoginPage = () => {
       email: "",
     },
   });
+  const { setUser } = useGlobalStore();
 
   const onSubmit = async (data) => {
     try {
-      await loginUser(data.email).unwrap();
+      const res = await loginUser(data.email).unwrap();
+      setUser(res.user);
       toast({
         title: "Éxito",
         description: "Sesión iniciada correctamente",
